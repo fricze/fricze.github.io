@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+    <head>
+        <title>starting styles!</title>
+        <style>
+            :root {
+                --spring-easing: linear(
+                    0 0%,
+                    0 2.27%,
+                    0.02 4.53%,
+                    0.04 6.8%,
+                    0.06 9.07%,
+                    0.1 11.33%,
+                    0.14 13.6%,
+                    0.25 18.15%,
+                    0.39 22.7%,
+                    0.56 27.25%,
+                    0.77 31.8%,
+                    1 36.35%,
+                    0.89 40.9%,
+                    0.85 43.18%,
+                    0.81 45.45%,
+                    0.79 47.72%,
+                    0.77 50%,
+                    0.75 52.27%,
+                    0.75 54.55%,
+                    0.75 56.82%,
+                    0.77 59.1%,
+                    0.79 61.38%,
+                    0.81 63.65%,
+                    0.85 65.93%,
+                    0.89 68.2%,
+                    1 72.7%,
+                    0.97 74.98%,
+                    0.95 77.25%,
+                    0.94 79.53%,
+                    0.94 81.8%,
+                    0.94 84.08%,
+                    0.95 86.35%,
+                    0.97 88.63%,
+                    1 90.9%,
+                    0.99 93.18%,
+                    0.98 95.45%,
+                    0.99 97.73%,
+                    1 100%
+                );
+
+                --mui-easing: linear(
+                    0,
+                    0.002,
+                    0.01 3.6%,
+                    0.034,
+                    0.074 9.1%,
+                    0.128 11.4%,
+                    0.194 13.4%,
+                    0.271 15%,
+                    0.344 16.1%,
+                    0.544,
+                    0.66 20.6%,
+                    0.717 22.4%,
+                    0.765 24.6%,
+                    0.808 27.3%,
+                    0.845 30.4%,
+                    0.883 35.1%,
+                    0.916 40.6%,
+                    0.942 47.2%,
+                    0.963 55%,
+                    0.979 64%,
+                    0.991 74.4%,
+                    0.998 86.4%,
+                    1
+                );
+            }
+
+            #groceries {
+                margin: 10vh auto;
+                background: #f9f9f9;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: Arial, sans-serif;
+                width: 200px;
+                font-size: 20px;
+            }
+
+            button {
+                display: block;
+                background: #f9f9f9;
+                border: 1px solid #ddd;
+                border-radius: 50%;
+                font-size: 50px;
+                height: 100px;
+                width: 100px;
+                margin: 10vh auto;
+                cursor: pointer;
+                transition:
+                    rotate 0.3s,
+                    border-color 0.2s,
+                    box-shadow 0.4s;
+                transition-delay: 0.5s, 0.3s, 0s;
+                transition-timing-function: ease, ease, ease;
+                display: grid;
+                place-items: center;
+
+                &::after {
+                    content: "";
+                    --b: 5px; /* the thickness */
+                    width: 50px; /* the size */
+                    aspect-ratio: 1;
+                    display: inline-block;
+                    margin: 10px;
+                    background: conic-gradient(
+                            from 90deg at var(--b) var(--b),
+                            transparent 90deg,
+                            #000 0
+                        )
+                        calc(100% + var(--b) / 2) calc(100% + var(--b) / 2) /
+                        calc(50% + var(--b)) calc(50% + var(--b));
+                }
+
+                &:hover {
+                    rotate: 360deg;
+                    border-color: deeppink;
+                    box-shadow: 3px 3px 20px deeppink;
+                }
+
+                &:nth-child(2) {
+                    transition-delay: 0.5s, 0.3s, 0s;
+
+                    &:hover {
+                        transition-delay: 0s, 0.3s, 0.35s;
+                    }
+                }
+
+                &:nth-child(3) {
+                    transition-timing-function: var(--spring-easing),
+                        var(--spring-easing), var(--spring-easing);
+                    transition-delay: 0.5s, 0.3s, 0s;
+
+                    &:hover {
+                        transition-delay: 0s, 0.3s, 0.35s;
+                    }
+                }
+
+                &:nth-child(4) {
+                    transition-timing-function: ease-in-out;
+                    transition-delay: 0.5s, 0.3s, 0s;
+                    transition-duration: 0.1s, 0.1s, 0.2s;
+
+                    &:hover {
+                        transition-duration: 0.3s, 0.2s, 0.4s;
+                        transition-timing-function: var(--mui-easing);
+                        transition-delay: 0s, 0.3s, 0.35s;
+                    }
+                }
+            }
+
+            #groceries div {
+                padding: 5px;
+                border-bottom: 1px solid #ddd;
+                transition:
+                    opacity 0.5s,
+                    translate 0.5s,
+                    height 0.5s;
+                transition-delay: var(--delay);
+                opacity: 1;
+                height: 2em;
+
+                @starting-style {
+                    opacity: 0;
+                    height: 0;
+                }
+            }
+
+            .buttons {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="buttons">
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+    </body>
+    <script></script>
+</html>

@@ -1,0 +1,376 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>starting styles!</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            :root {
+                --spring-easing: linear(
+                    0 0%,
+                    0 2.27%,
+                    0.02 4.53%,
+                    0.04 6.8%,
+                    0.06 9.07%,
+                    0.1 11.33%,
+                    0.14 13.6%,
+                    0.25 18.15%,
+                    0.39 22.7%,
+                    0.56 27.25%,
+                    0.77 31.8%,
+                    1 36.35%,
+                    0.89 40.9%,
+                    0.85 43.18%,
+                    0.81 45.45%,
+                    0.79 47.72%,
+                    0.77 50%,
+                    0.75 52.27%,
+                    0.75 54.55%,
+                    0.75 56.82%,
+                    0.77 59.1%,
+                    0.79 61.38%,
+                    0.81 63.65%,
+                    0.85 65.93%,
+                    0.89 68.2%,
+                    1 72.7%,
+                    0.97 74.98%,
+                    0.95 77.25%,
+                    0.94 79.53%,
+                    0.94 81.8%,
+                    0.94 84.08%,
+                    0.95 86.35%,
+                    0.97 88.63%,
+                    1 90.9%,
+                    0.99 93.18%,
+                    0.98 95.45%,
+                    0.99 97.73%,
+                    1 100%
+                );
+
+                --mui-easing: linear(
+                    0,
+                    0.002,
+                    0.01 3.6%,
+                    0.034,
+                    0.074 9.1%,
+                    0.128 11.4%,
+                    0.194 13.4%,
+                    0.271 15%,
+                    0.344 16.1%,
+                    0.544,
+                    0.66 20.6%,
+                    0.717 22.4%,
+                    0.765 24.6%,
+                    0.808 27.3%,
+                    0.845 30.4%,
+                    0.883 35.1%,
+                    0.916 40.6%,
+                    0.942 47.2%,
+                    0.963 55%,
+                    0.979 64%,
+                    0.991 74.4%,
+                    0.998 86.4%,
+                    1
+                );
+
+                --bounce-easing: linear(
+                    0,
+                    0.086,
+                    0.218,
+                    0.372 3.2%,
+                    0.862 6.5%,
+                    1.001,
+                    1.114,
+                    1.219,
+                    1.296 10.7%,
+                    1.324,
+                    1.346,
+                    1.362,
+                    1.37,
+                    1.373,
+                    1.373,
+                    1.37,
+                    1.364 14.5%,
+                    1.345,
+                    1.315 16.2%,
+                    1.243 17.8%,
+                    1.032 21.8%,
+                    0.981,
+                    0.941,
+                    0.913,
+                    0.891,
+                    0.877 26.9%,
+                    0.872,
+                    0.869 27.8%,
+                    0.868,
+                    0.87,
+                    0.875,
+                    0.882,
+                    0.893,
+                    0.907 32.4%,
+                    0.981 36.4%,
+                    0.998,
+                    1.012 38.3%,
+                    1.026,
+                    1.036,
+                    1.042,
+                    1.046 42.7%,
+                    1.047,
+                    1.046 44.1%,
+                    1.042,
+                    1.033 47.4%,
+                    1.007 51.3%,
+                    0.996,
+                    0.988 55.4%,
+                    0.985,
+                    0.984 57.5% 59%,
+                    0.985 60.7%,
+                    1.001 68.1%,
+                    1.004,
+                    1.006 72.2%,
+                    1.005 75.7%,
+                    1 82.9%,
+                    0.998 86.7% 90.1%,
+                    1 98.8%,
+                    1
+                );
+            }
+
+            #groceries {
+                margin: 0 auto;
+                margin-top: 30vh;
+                background: #f9f9f9;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: Arial, sans-serif;
+                width: 300px;
+                font-size: 24px;
+                transition: all 0.5s;
+            }
+
+            input[type="text"] {
+                font-family: Arial, sans-serif;
+                font-size: 24px;
+                width: 100%;
+            }
+
+            #groceries {
+                --selected-easing: var(--bounce-easing);
+
+                &:has(input[type="radio"]#bounce:checked) {
+                    --selected-easing: var(--bounce-easing);
+                }
+
+                &:has(input[type="radio"]#mui:checked) {
+                    --selected-easing: var(--mui-easing);
+                }
+            }
+
+            #groceries .grocery-element {
+                grid-template-rows: 1fr;
+                display: grid;
+                transition:
+                    grid-template-rows 0.3s,
+                    padding 0.3s;
+
+                transition-timing-function: var(--selected-easing);
+
+                overflow: hidden;
+
+                &:hover {
+                    text-decoration: underline;
+                    color: deeppink;
+                    cursor: pointer;
+                }
+
+                padding: 5px;
+                border-bottom: 1px solid #ddd;
+
+                @starting-style {
+                    padding-top: 0;
+                    padding-bottom: 0;
+
+                    grid-template-rows: 0fr;
+
+                    .content {
+                        visibility: hidden;
+                    }
+                }
+
+                .content {
+                    min-height: 0;
+                    transition: visibility 0.3s;
+                    visibility: visible;
+
+                    &::after {
+                        content: "×";
+                        margin-left: 10px;
+                    }
+                }
+
+                &.leaving {
+                    grid-template-rows: 0fr;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+            }
+
+            #groceries-new {
+                margin: 0 auto;
+                background: #f9f9f9;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: Arial, sans-serif;
+                width: 300px;
+                font-size: 24px;
+                margin-top: 2lh;
+            }
+
+            .real-dom {
+                position: fixed;
+                font-family: Arial, sans-serif;
+                top: 0;
+                left: 0;
+                text-align: center;
+                width: 100%;
+                color: deeppink;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="real-dom">transition-timing-function: linear(…)</h1>
+        <div id="groceries">
+            <form>
+                <fieldset>
+                    <legend>Easing</legend>
+
+                    <input
+                        type="radio"
+                        id="mui"
+                        name="easing"
+                        value="mui"
+                        checked
+                    />
+                    <label for="mui">MUI</label><br />
+
+                    <input
+                        type="radio"
+                        id="bounce"
+                        name="easing"
+                        value="bounce"
+                    />
+                    <label for="bounce">Bounce</label><br />
+                </fieldset>
+            </form>
+
+            <h1>Groceries</h1>
+            <div id="groceries-list"></div>
+        </div>
+
+        <form id="groceries-new">
+            <input type="text" placeholder="Add to list" />
+        </form>
+    </body>
+    <script>
+        const groceryList = [
+            "Bread",
+            "Tomatoes",
+            "Milk with chocolate and banana",
+        ];
+
+        const groceriesElement = document.getElementById("groceries-list");
+
+        groceriesElement.addEventListener("click", (e) => {
+            const groceryElement = e.target.closest(".grocery-element");
+
+            if (groceryElement) {
+                groceryElement.classList.add("leaving");
+                // For transitions only
+                groceryElement.addEventListener("transitionend", () => {
+                    groceryElement.remove();
+                });
+
+                // For all kinds of animations
+                // Promise.all(
+                //     groceryElement
+                //         .getAnimations({ subtree: true })
+                //         .map((animation) => animation.finished),
+                // ).then(() => groceryElement.remove());
+            }
+        });
+
+        groceriesElement.addEventListener("keydown", (e) => {
+            if (e.key !== "Enter") {
+                return;
+            }
+
+            const groceryElement = e.target.closest(".grocery-element");
+            let sibling;
+
+            if (groceryElement) {
+                if (
+                    groceryElement?.nextSibling?.classList.contains(
+                        "grocery-element",
+                    )
+                ) {
+                    sibling = e?.target?.nextSibling;
+                }
+
+                if (
+                    groceryElement?.previousSibling?.classList?.contains(
+                        "grocery-element",
+                    )
+                ) {
+                    sibling = e?.target?.previousSibling;
+                }
+
+                groceryElement.classList.add("leaving");
+                Promise.all(
+                    groceryElement
+                        .getAnimations({ subtree: true })
+                        .map((animation) => animation.finished),
+                ).then(() => groceryElement.remove());
+
+                sibling?.focus();
+            }
+        });
+
+        groceryList.forEach((el, idx) => {
+            setTimeout(async () => {
+                const newElement = document.createElement("div");
+                const content = document.createElement("div");
+                content.classList.add("content");
+                newElement.appendChild(content);
+                newElement.classList.add("grocery-element");
+                newElement.tabIndex = 1;
+
+                content.textContent = el;
+                groceriesElement.appendChild(newElement);
+            }, 1000 * idx);
+        });
+
+        const groceriesForm = document.getElementById("groceries-new");
+        const input = groceriesForm.getElementsByTagName("input")[0];
+        groceriesForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const newElement = document.createElement("div");
+            const content = document.createElement("div");
+            content.classList.add("content");
+            newElement.appendChild(content);
+            newElement.classList.add("grocery-element");
+            newElement.tabIndex = 1;
+            content.textContent = input.value;
+
+            groceriesElement.appendChild(newElement);
+
+            input.value = "";
+        });
+    </script>
+</html>

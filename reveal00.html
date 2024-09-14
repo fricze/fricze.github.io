@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Reveal</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            :root,
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .reveal {
+                height: 400vh;
+                margin: 0 auto;
+                width: 100%;
+                display: grid;
+                view-timeline-name: --section-pin;
+                view-timeline-axis: block;
+                position: relative;
+                z-index: 3;
+
+                &:nth-child(2) {
+                    position: relative;
+                    z-index: 2;
+                }
+
+                img {
+                    grid-row: 1;
+                    grid-column: 1;
+                    position: sticky;
+                    top: 0;
+                    translate: 0% 0%;
+
+                    &:nth-child(1) {
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                        animation: linear move forwards;
+                        animation-timeline: --section-pin;
+                        animation-range: contain 0% contain 50%;
+
+                        z-index: 3;
+                    }
+
+                    &:nth-child(2) {
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                        animation: linear move forwards;
+                        animation-timeline: --section-pin;
+                        animation-range: contain 50% contain 100%;
+
+                        z-index: 2;
+                    }
+                }
+            }
+
+            @keyframes move {
+                to {
+                    clip-path: polygon(0 0, 100% 0, 100% 0%, 0% 0%);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <img src="00.webp" />
+            <img src="01.webp" />
+        </div>
+    </body>
+</html>

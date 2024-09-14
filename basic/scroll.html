@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            body {
+                animation-name: background-change;
+                animation-timeline: scroll();
+                animation-timing-function: linear;
+
+                display: flex;
+                flex-direction: column;
+                gap: 4lh;
+                padding: 4lh;
+            }
+
+            article {
+                background: #ab854e;
+                border-radius: 15px;
+                height: 30vh;
+                width: 100%;
+            }
+
+            /* @keyframes background-change {
+                from {
+                    background-color: #000;
+                }
+                to {
+                    background-color: #fff;
+                }
+            } */
+
+            @keyframes background-change {
+                0% {
+                    background-color: #000;
+                }
+                50% {
+                    background-color: #734c61;
+                }
+                100% {
+                    background-color: #fff;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <article></article>
+        <article></article>
+        <article></article>
+        <article></article>
+        <article></article>
+        <article></article>
+        <article></article>
+        <article></article>
+        <article></article>
+    </body>
+</html>

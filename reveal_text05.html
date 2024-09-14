@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Reveal</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            :root,
+            body {
+                padding: 0;
+                margin: 0;
+                scroll-snap-type: y proximity;
+                background: #000;
+            }
+
+            .reveal {
+                .clip.active {
+                    clip-path: polygon(0% -20%, 150% -20%, 150% 250%, 0% 250%);
+                    z-index: 4;
+                }
+
+                &:has(.active) {
+                    .clip:not(.active) {
+                        opacity: 0.7;
+                        pointer-events: none;
+                    }
+                }
+
+                .clip {
+                    /* scroll-snap-align: start; */
+                    /* scroll-padding-top: 15vh; */
+                    height: 30vh;
+                    width: 70%;
+                    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+                    display: grid;
+                    place-items: center;
+                    margin: 5lh 0;
+                    transition:
+                        0.3s cubic-bezier(0.075, 0.82, 0.165, 1) clip-path,
+                        0.3s cubic-bezier(0.075, 0.82, 0.165, 1) opacity;
+                    position: relative;
+                    cursor: pointer;
+                    text-decoration-color: #fff;
+                    text-decoration-thickness: 2px;
+                    text-underline-offset: 8px;
+
+                    &:not(.active):hover {
+                        clip-path: polygon(
+                            0% -20%,
+                            120% -20%,
+                            120% 120%,
+                            0% 120%
+                        );
+                        z-index: 5;
+                        text-decoration: underline #fff 3px;
+
+                        img {
+                            scale: 1.1;
+                        }
+                    }
+
+                    p {
+                        margin: 0;
+                        font-size: 90px;
+                        font-weight: bold;
+                        -webkit-text-stroke: 2px white;
+                        -webkit-text-fill-color: #0000004f;
+                        color: #fff;
+                        text-align: center;
+                        position: relative;
+                        z-index: 5;
+                        font-family: Arial, Helvetica, sans-serif;
+                    }
+                }
+
+                margin: 50dvh auto;
+                width: 70%;
+                view-timeline-name: --section-pin;
+                view-timeline-axis: block;
+                position: relative;
+                z-index: 3;
+
+                .img {
+                    transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) scale;
+                    user-select: none;
+                    pointer-events: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    object-fit: scale-down;
+                    object-position: top;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="clip">
+                <p>Tony Albert</p>
+                <img src="00.webp" class="img" />
+            </div>
+            <div class="clip">
+                <p>Bob Freeman</p>
+                <img src="01.webp" class="img" />
+            </div>
+            <div class="clip">
+                <p>Gary Winston</p>
+                <img src="02.webp" class="img" />
+            </div>
+            <div class="clip">
+                <p>John Castello</p>
+                <img src="03.webp" class="img" />
+            </div>
+            <div class="clip">
+                <p>Hai French</p>
+                <img src="04.webp" class="img" />
+            </div>
+            <div class="clip">
+                <p>Judy Manche</p>
+                <img src="05.webp" class="img" />
+            </div>
+        </div>
+
+        <script>
+            Array.from(document.querySelectorAll(".clip")).forEach(
+                (el, idx) => {
+                    el.setAttribute("idx", idx);
+                },
+            );
+
+            document.addEventListener("click", ({ target }) => {
+                const active = target.closest(".clip.active");
+                console.log(target);
+                console.log(active);
+                if (active) {
+                    return;
+                }
+                const clip = target.closest(".clip");
+                if (clip) {
+                    Array.from(document.querySelectorAll(".active")).forEach(
+                        (el, idx) => {
+                            el.classList.toggle("active");
+                        },
+                    );
+                    clip.classList.toggle("active");
+
+                    clip.scrollIntoView({
+                        behavior: "smooth",
+                    });
+                } else {
+                    Array.from(document.querySelectorAll(".active")).forEach(
+                        (el, idx) => {
+                            el.classList.toggle("active");
+                        },
+                    );
+                }
+            });
+        </script>
+    </body>
+</html>

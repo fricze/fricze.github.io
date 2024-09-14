@@ -1,0 +1,568 @@
+<!doctype html>
+<html>
+    <head>
+        <title>bj master</title>
+        <style>
+            :root {
+                --step-size: 80px;
+                scroll-snap-type: y mandatory;
+            }
+
+            body {
+                --step: 1;
+                --sprite: url(./ass/run.png);
+                --character-top: 0px;
+                min-height: 300dvh;
+                animation-name: move;
+                animation-timeline: scroll();
+                animation-timing-function: linear;
+                background: #363a41;
+
+                &::before {
+                    counter-reset: variable var(--step);
+                    content: counter(variable);
+                    /* content: "dupa " calc(var(--step) * 1px); */
+                    display: block;
+                    color: deeppink;
+                    position: fixed;
+                    top: 20px;
+                    left: 40px;
+                    font-size: 40px;
+                    z-index: 6;
+                }
+            }
+
+            .step {
+                height: 20px;
+                scroll-snap-align: start;
+            }
+
+            .bg {
+                width: 100%;
+                height: 100dvh;
+                position: fixed;
+                background-repeat: repeat-x;
+                top: 8%;
+            }
+
+            #bg1 {
+                background-image: url("ass/background.png");
+                animation-name: move-bg1;
+                animation-timeline: scroll();
+                animation-timing-function: linear;
+            }
+
+            #bg2 {
+                background-image: url("ass/background2.png");
+                animation-name: move-bg2;
+                animation-timeline: scroll();
+                animation-timing-function: linear;
+            }
+
+            #bg3 {
+                background-image: url("ass/background3.png");
+                animation-name: move-bg3;
+                animation-timeline: scroll();
+                animation-timing-function: linear;
+            }
+
+            #bg4 {
+                background-image: url("ass/background4.png");
+                z-index: 3;
+                animation-name: move-bg4;
+                animation-timeline: scroll();
+                animation-timing-function: linear;
+                opacity: 0.4;
+            }
+
+            @keyframes move-bg1 {
+                0% {
+                    background-position-x: 0px;
+                }
+                100% {
+                    background-position-x: -200px;
+                }
+            }
+
+            @keyframes move-bg2 {
+                0% {
+                    background-position-x: 0px;
+                }
+                100% {
+                    background-position-x: -400px;
+                }
+            }
+
+            @keyframes move-bg3 {
+                0% {
+                    background-position-x: 0px;
+                }
+                100% {
+                    background-position-x: -600px;
+                }
+            }
+
+            @keyframes move-bg4 {
+                0% {
+                    background-position-x: 0px;
+                }
+                100% {
+                    background-position-x: -1000px;
+                }
+            }
+
+            @keyframes move {
+                0% {
+                    --step: 1;
+                }
+                1% {
+                    --step: 2;
+                }
+                2% {
+                    --step: 3;
+                }
+                3% {
+                    --step: 4;
+                }
+                4% {
+                    --step: 5;
+                }
+                5% {
+                    --sprite: url(./ass/jump.png);
+                    --character-top: -60px;
+                    --step: 6;
+                }
+                6% {
+                    --step: 7;
+                }
+                7% {
+                    --step: 8;
+                }
+                8% {
+                    --step: 9;
+                }
+                9% {
+                    --sprite: url(./ass/run.png);
+                    --step: 10;
+                }
+                10% {
+                    --character-top: 0px;
+                    --step: 11;
+                }
+                11% {
+                    /* --character-top: -60px; */
+                    --step: 12;
+                }
+                12% {
+                    /* --character-top: -40px; */
+                    --step: 13;
+                }
+                13% {
+                    /* --character-top: 0px; */
+                    --step: 14;
+                }
+                14% {
+                    --step: 15;
+                }
+                15% {
+                    --step: 16;
+                }
+                16% {
+                    --step: 17;
+                }
+                17% {
+                    --step: 18;
+                }
+                18% {
+                    --step: 19;
+                }
+                19% {
+                    --step: 20;
+                }
+                20% {
+                    --step: 21;
+                }
+                21% {
+                    --step: 22;
+                }
+                22% {
+                    --step: 23;
+                }
+                23% {
+                    --step: 24;
+                }
+                24% {
+                    --step: 25;
+                }
+                25% {
+                    --step: 26;
+                }
+                26% {
+                    --step: 27;
+                }
+                27% {
+                    --step: 28;
+                }
+                28% {
+                    --step: 29;
+                }
+                29% {
+                    --step: 30;
+                }
+                30% {
+                    --character-top: -0px;
+                    --sprite: url(./ass/run.png);
+                    --step: 31;
+                }
+                31% {
+                    --character-top: -0px;
+                    --sprite: url(./ass/run.png);
+                    --step: 32;
+                }
+                32% {
+                    --step: 33;
+                }
+                33% {
+                    --step: 34;
+                }
+                34% {
+                    --step: 35;
+                }
+                35% {
+                    --character-top: -0px;
+                    --sprite: url(./ass/run.png);
+                    --step: 36;
+                }
+                36% {
+                    --step: 37;
+                }
+                37% {
+                    --step: 38;
+                }
+                38% {
+                    --character-top: -0px;
+                    --sprite: url(./ass/run.png);
+                    --step: 39;
+                }
+                39% {
+                    --step: 40;
+                }
+                40% {
+                    --step: 41;
+                }
+                41% {
+                    --step: 42;
+                }
+                42% {
+                    --character-top: -0px;
+                    --sprite: url(./ass/run.png);
+                    --step: 43;
+                }
+                43% {
+                    --step: 44;
+                }
+                44% {
+                    --step: 45;
+                }
+                45% {
+                    --step: 46;
+                }
+                46% {
+                    --step: 47;
+                }
+                47% {
+                    --step: 48;
+                }
+                48% {
+                    --step: 49;
+                }
+                49% {
+                    --step: 50;
+                }
+                50% {
+                    --sprite: url(./ass/jump.png);
+                    --character-top: -50px;
+                    --step: 51;
+                }
+                51% {
+                    --character-top: -60px;
+                    --step: 52;
+                }
+                52% {
+                    --character-top: -50px;
+                    --step: 53;
+                }
+                53% {
+                    --character-top: -40px;
+                    --step: 54;
+                }
+                54% {
+                    --sprite: url(./ass/run.png);
+                    --step: 55;
+                }
+                55% {
+                    --character-top: -0px;
+                    --step: 56;
+                }
+                56% {
+                    --step: 57;
+                }
+                57% {
+                    --step: 58;
+                }
+                58% {
+                    --step: 59;
+                }
+                59% {
+                    --step: 60;
+                }
+                60% {
+                    --step: 61;
+                }
+                61% {
+                    --step: 62;
+                }
+                62% {
+                    --step: 63;
+                }
+                63% {
+                    --step: 64;
+                }
+                64% {
+                    --step: 65;
+                }
+                65% {
+                    --step: 66;
+                }
+                66% {
+                    --step: 67;
+                }
+                67% {
+                    --step: 68;
+                }
+                68% {
+                    --step: 69;
+                }
+                69% {
+                    --step: 70;
+                }
+                70% {
+                    --step: 71;
+                }
+                71% {
+                    --step: 72;
+                }
+                72% {
+                    --step: 73;
+                }
+                73% {
+                    --step: 74;
+                }
+                74% {
+                    --step: 75;
+                }
+                75% {
+                    --step: 76;
+                }
+                76% {
+                    --step: 77;
+                }
+                77% {
+                    --step: 78;
+                }
+                78% {
+                    --step: 79;
+                }
+                79% {
+                    --step: 80;
+                }
+                80% {
+                    --step: 81;
+                }
+                81% {
+                    --step: 82;
+                }
+                82% {
+                    --step: 83;
+                }
+                83% {
+                    --step: 84;
+                }
+                84% {
+                    --step: 85;
+                }
+                85% {
+                    --step: 86;
+                }
+                86% {
+                    --step: 87;
+                }
+                87% {
+                    --step: 88;
+                }
+                88% {
+                    --step: 89;
+                }
+                89% {
+                    --step: 90;
+                }
+                90% {
+                    --step: 91;
+                }
+                91% {
+                    --step: 92;
+                }
+                92% {
+                    --step: 93;
+                }
+                93% {
+                    --step: 94;
+                }
+                94% {
+                    --step: 95;
+                }
+                95% {
+                    --step: 96;
+                }
+                96% {
+                    --step: 97;
+                }
+                97% {
+                    --step: 98;
+                }
+                98% {
+                    --step: 99;
+                }
+                99% {
+                    --step: 100;
+                }
+            }
+
+            article {
+                position: fixed;
+                left: 50%;
+                top: calc(49% + var(--character-top));
+                scale: 2;
+                background-image: var(--sprite);
+                width: 25px;
+                height: 40px;
+                background-position-x: calc(
+                    -17px - (var(--step) * var(--step-size))
+                );
+                background-position-y: -20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="bg1" class="bg"></div>
+        <div id="bg2" class="bg"></div>
+        <div id="bg3" class="bg"></div>
+        <div id="bg4" class="bg"></div>
+        <article></article>
+
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+    </body>
+</html>

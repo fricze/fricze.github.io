@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js"></script>
+        <title>Image reveal using scroll-timeline</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+            * {
+                box-sizing: border-box;
+            }
+
+            :root {
+                --basic-line-height: 26px;
+                font-size: 20px;
+                font-family: "Work Sans", sans-serif;
+                line-height: var(--basic-line-height);
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            article {
+                max-width: 60ch;
+                margin: calc(var(--basic-line-height) * 4) auto;
+                margin: 4lh auto;
+                padding: 0 4vw;
+            }
+
+            img {
+                margin: 0;
+                padding: 0;
+                max-width: 100%;
+                object-fit: cover;
+
+                animation-timeline: view();
+                animation-range-start: 20%;
+                animation-range-end: 50%;
+                animation-name: img-reveal;
+                animation-fill-mode: both;
+            }
+
+            @keyframes img-reveal {
+                from {
+                    opacity: 0;
+                    clip-path: polygon(20% 0, 80% 0, 80% 72%, 20% 72%);
+                }
+                to {
+                    opacity: 1;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                }
+            }
+
+            p {
+                margin: var(--basic-line-height) 0;
+                margin: 1lh 0;
+            }
+
+            h1 {
+                font-size: 40px;
+                line-height: 52px;
+            }
+
+            .progress-indicator {
+                height: 1lh;
+                background: deeppink;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 5;
+
+                animation-timing-function: linear;
+                animation-timeline: scroll();
+                animation-name: read-progress;
+            }
+
+            @keyframes read-progress {
+                from {
+                    width: 0vw;
+                }
+                to {
+                    width: 100vw;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="progress-indicator"></div>
+        <article>
+            <h1>Miles Davis (image reveal demo)</h1>
+            <p>
+                Miles Dewey Davis III (May 26, 1926 - September 28, 1991) was an
+                American jazz trumpeter, bandleader, and composer. He is among
+                the most influential and acclaimed figures in the history of
+                jazz and 20th-century music. Davis adopted a variety of musical
+                directions in a roughly five-decade career that kept him at the
+                forefront of many major stylistic developments in jazz.
+            </p>
+            <img src="one.webp" />
+            <p>
+                Born into an upper-middle-class family in Alton, Illinois, and
+                raised in East St. Louis, Davis started on the trumpet in his
+                early teens. He left to study at Juilliard in New York City,
+                before dropping out and making his professional debut as a
+                member of saxophonist Charlie Parker's bebop quintet from 1944
+                to 1948. Shortly after, he recorded the Birth of the Cool
+                sessions for Capitol Records, which were instrumental to the
+                development of cool jazz. In the early 1950s, Davis recorded
+                some of the earliest hard bop music while on Prestige Records
+                but did so haphazardly due to a heroin addiction. After a widely
+                acclaimed comeback performance at the Newport Jazz Festival, he
+                signed a long-term contract with Columbia Records, and recorded
+                the album 'Round About Midnight in 1955. It was his first work
+                with saxophonist John Coltrane and bassist Paul Chambers, key
+                members of the sextet he led into the early 1960s. During this
+                period, he alternated between orchestral jazz collaborations
+                with arranger Gil Evans, such as the Spanish music-influenced
+                Sketches of Spain (1960), and band recordings, such as
+                Milestones (1958) and Kind of Blue (1959). The latter recording
+                remains one of the most popular jazz albums of all time, having
+                sold over five million copies in the U.S.
+            </p>
+            <img src="two.webp" />
+            <p>
+                After a five-year retirement due to poor health, Davis resumed
+                his career in the 1980s, employing younger musicians and pop
+                sounds on albums such as The Man with the Horn (1981) and Tutu
+                (1986). Critics were often unreceptive but the decade garnered
+                Davis his highest level of commercial recognition. He performed
+                sold-out concerts worldwide, while branching out into visual
+                arts, film, and television work, before his death in 1991 from
+                the combined effects of a stroke, pneumonia and respiratory
+                failure. In 2006, Davis was inducted into the Rock and Roll Hall
+                of Fame, which recognized him as "one of the key figures in the
+                history of jazz". Rolling Stone described him as "the most
+                revered jazz trumpeter of all time, not to mention one of the
+                most important musicians of the 20th century," while Gerald
+                Early called him inarguably one of the most influential and
+                innovative musicians of that period.
+            </p>
+            <img src="three.webp" />
+        </article>
+    </body>
+</html>

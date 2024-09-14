@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Reveal</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            :root,
+            body {
+                padding: 0;
+                margin: 0;
+                scroll-snap-type: y proximity;
+                scroll-behavior: smooth;
+            }
+
+            section {
+                position: relative;
+                color: deeppink;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .reveal-text {
+                .clip {
+                    p {
+                        margin: 0;
+                        font-size: 3vw;
+                        font-weight: bold;
+
+                        a {
+                            color: deeppink;
+                            /* background: url("00.webp") 0 0 / cover no-repeat; */
+                            /* -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent; */
+                        }
+                    }
+
+                    section {
+                        --bg-color: #ffffff73;
+                        --bg-color: #ffffff;
+                        /* background: var(--bg-color); */
+                        /* box-shadow: 1px 1px 10px 10px var(--bg-color); */
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    &:nth-child(1 of .clip) {
+                        /* background: url("05.webp") dodgerblue; */
+                        background-size: cover;
+                        background-blend-mode: color-burn;
+                        /* background-attachment: fixed; */
+                        /* opacity: 0.3; */
+
+                        p:nth-of-type(1) {
+                            font-size: 5vw;
+                            background: url(00.webp) center / cover no-repeat;
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            -moz-background-clip: text;
+                            -moz-text-fill-color: transparent;
+                            -ms-background-clip: text;
+                            -ms-text-fill-color: transparent;
+                            background-clip: text;
+                            text-fill-color: transparent;
+                            height: max-content;
+                            display: flex;
+                            flex-direction: column;
+                            text-align: left;
+                            width: 100%;
+                            height: 100%;
+                            -webkit-text-stroke-width: 2px;
+                            -webkit-text-stroke-color: black;
+
+                            a {
+                                &:hover {
+                                    color: #fff;
+                                }
+                            }
+                        }
+
+                        section {
+                            /* background: url("05.webp");
+                            background-size: cover;
+                            background-blend-mode: color-burn; */
+                        }
+                    }
+
+                    &:nth-child(2 of .clip) {
+                        p:nth-of-type(2) {
+                            font-size: 5vw;
+                        }
+
+                        section {
+                            /* --bg-color: #ffffffc2; */
+                            background: deeppink;
+                            color: #fff;
+
+                            p a {
+                                color: #fff;
+                            }
+                        }
+                    }
+
+                    &:nth-child(3 of .clip) {
+                        p:nth-of-type(3) {
+                            font-size: 5vw;
+                        }
+
+                        section {
+                            /* --bg-color: #555555; */
+                        }
+                    }
+
+                    &:nth-child(4 of .clip) {
+                        p:nth-of-type(4) {
+                            font-size: 5vw;
+                        }
+
+                        section {
+                            /* --bg-color: #555555; */
+                        }
+                    }
+                }
+
+                position: absolute;
+                z-index: 4;
+                width: 100%;
+                height: 100%;
+
+                .clip {
+                    height: 100vh;
+                    width: 100%;
+                    &:first-child {
+                        height: calc(200dvh + 60px);
+                    }
+
+                    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+                    /* clip-path: circle(50% at 50% 50%); */
+                    /* clip-path: polygon(100% 0, 100% 100%, 0% 100%);
+                    clip-path: polygon(150% -710%, 100% 100%, 0% 100%);
+                    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); */
+
+                    /* clip-path: polygon(
+                        25vw -30vh,
+                        100vw -30vh,
+                        75vw 100vh,
+                        0vw 100vh
+                    );
+                    clip-path: polygon(
+                        25vw -30vh,
+                        70vw -100vh,
+                        35vw 90vh,
+                        0vw 100vh
+                    ); */
+
+                    position: relative;
+                }
+
+                section {
+                    position: fixed;
+                    top: 0;
+                    text-align: end;
+
+                    p {
+                        height: 5vw;
+                        line-height: 5vw;
+                    }
+                }
+
+                .bg {
+                    /* background: deeppink; */
+                    height: 30px;
+                }
+            }
+
+            .reveal {
+                .clip {
+                    scroll-snap-align: start;
+                    scroll-padding-top: 15vh;
+                    height: 100vh;
+                    width: 100%;
+                    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+                    position: relative;
+                }
+
+                margin: 0 auto;
+                width: 100%;
+                view-timeline-name: --section-pin;
+                view-timeline-axis: block;
+                position: relative;
+                z-index: 3;
+
+                .bg {
+                    height: 30px;
+                    background: #fff;
+                    background: url("./glitch.gif");
+                    /* box-shadow: 0px -20px 16px 16px #333; */
+                    position: relative;
+                    /* background: linear-gradient(to bottom, white, transparent); */
+                }
+                .img {
+                    /* position: fixed;
+                    top: 0; */
+                    object-fit: cover;
+                    object-position: center;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .content {
+                    position: fixed;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal-text">
+            <div class="clip">
+                <section>
+                    <p>
+                        <a href="#blackrock">black rock</a>
+                        <a href="#statestreet">state street</a>
+                        <a href="#vanguard">vanguard</a>
+                        <a href="#hsbc">hsbc</a>
+                    </p>
+                </section>
+            </div>
+            <div class="bg"></div>
+            <div class="clip">
+                <section>
+                    <p><a href="#blackrock">black rock</a></p>
+                    <p><a href="#statestreet">state street</a></p>
+                    <p><a href="#vanguard">vanguard</a></p>
+                    <p><a href="#hsbc">hsbc</a></p>
+                </section>
+            </div>
+            <div class="bg"></div>
+            <div class="clip">
+                <section>
+                    <p><a href="#blackrock">black rock</a></p>
+                    <p><a href="#statestreet">state street</a></p>
+                    <p><a href="#vanguard">vanguard</a></p>
+                    <p><a href="#hsbc">hsbc</a></p>
+                </section>
+            </div>
+            <div class="bg"></div>
+            <div class="clip">
+                <section>
+                    <p><a href="#blackrock">black rock</a></p>
+                    <p><a href="#statestreet">state street</a></p>
+                    <p><a href="#vanguard">vanguard</a></p>
+                    <p><a href="#hsbc">hsbc</a></p>
+                </section>
+            </div>
+        </div>
+
+        <div class="reveal">
+            <div class="clip" id="blackrock">
+                <div class="content">
+                    <img src="00.webp" class="img" />
+                </div>
+            </div>
+            <div class="bg"></div>
+            <div class="clip" id="statestreet">
+                <img src="01.webp" class="img" />
+            </div>
+            <div class="bg"></div>
+            <div class="clip" id="vanguard">
+                <img src="02.webp" class="img" />
+            </div>
+            <div class="bg"></div>
+            <div class="clip" id="hsbc">
+                <img src="03.webp" class="img" />
+            </div>
+            <div class="bg"></div>
+            <div class="clip">
+                <img src="04.webp" class="img" />
+            </div>
+            <div class="bg"></div>
+            <div class="clip">
+                <img src="05.webp" class="img" />
+            </div>
+        </div>
+    </body>
+</html>

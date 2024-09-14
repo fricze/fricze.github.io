@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>starting styles!</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            #groceries {
+                margin: 0 auto;
+                margin-top: 30vh;
+                background: #f9f9f9;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: Arial, sans-serif;
+                width: 300px;
+                font-size: 24px;
+                transition: all 0.5s;
+            }
+
+            input {
+                font-family: Arial, sans-serif;
+                font-size: 24px;
+                width: 100%;
+            }
+
+            #groceries .grocery-element {
+                grid-template-rows: 1fr;
+                display: grid;
+                transition:
+                    grid-template-rows 0.3s,
+                    padding 0.3s;
+                overflow: hidden;
+
+                @starting-style {
+                    padding-top: 0;
+                    padding-bottom: 0;
+
+                    grid-template-rows: 0fr;
+
+                    .content {
+                        visibility: hidden;
+                    }
+                }
+
+                .content {
+                    min-height: 0;
+                    transition: visibility 0.3s;
+                    visibility: visible;
+
+                    &::after {
+                        content: "×";
+                        margin-left: 10px;
+                    }
+                }
+
+                &:hover {
+                    text-decoration: underline;
+                    color: deeppink;
+                    cursor: pointer;
+                }
+
+                padding: 5px;
+                border-bottom: 1px solid #ddd;
+
+                &.leaving {
+                    grid-template-rows: 0fr;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+            }
+
+            #groceries-new {
+                margin: 0 auto;
+                background: #f9f9f9;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: Arial, sans-serif;
+                width: 300px;
+                font-size: 24px;
+                margin-top: 2lh;
+            }
+
+            .real-dom {
+                position: fixed;
+                font-family: Arial, sans-serif;
+                top: 0;
+                left: 0;
+                text-align: center;
+                width: 100%;
+                color: deeppink;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="real-dom">Animate to auto height!</h1>
+        <div id="groceries">
+            <h1>Groceries</h1>
+            <div id="groceries-list"></div>
+        </div>
+
+        <form id="groceries-new">
+            <input type="text" placeholder="Add to list" />
+        </form>
+    </body>
+    <script>
+        const groceryList = [
+            "Bread",
+            "Tomatoes",
+            "Milk with chocolate and banana",
+        ];
+
+        const groceriesElement = document.getElementById("groceries-list");
+
+        groceriesElement.addEventListener("click", (e) => {
+            const groceryElement = e.target.closest(".grocery-element");
+
+            if (groceryElement) {
+                groceryElement.classList.add("leaving");
+                // For transitions only
+                groceryElement.addEventListener("transitionend", () => {
+                    groceryElement.remove();
+                });
+
+                // For all kinds of animations
+                // Promise.all(
+                //     groceryElement
+                //         .getAnimations({ subtree: true })
+                //         .map((animation) => animation.finished),
+                // ).then(() => groceryElement.remove());
+            }
+        });
+
+        groceriesElement.addEventListener("keydown", (e) => {
+            if (e.key !== "Enter") {
+                return;
+            }
+
+            const groceryElement = e.target.closest(".grocery-element");
+            let sibling;
+
+            if (groceryElement) {
+                if (
+                    groceryElement?.nextSibling?.classList.contains(
+                        "grocery-element",
+                    )
+                ) {
+                    sibling = e?.target?.nextSibling;
+                }
+
+                if (
+                    groceryElement?.previousSibling?.classList?.contains(
+                        "grocery-element",
+                    )
+                ) {
+                    sibling = e?.target?.previousSibling;
+                }
+
+                groceryElement.classList.add("leaving");
+                Promise.all(
+                    groceryElement
+                        .getAnimations({ subtree: true })
+                        .map((animation) => animation.finished),
+                ).then(() => groceryElement.remove());
+
+                sibling?.focus();
+            }
+        });
+
+        groceryList.forEach((el, idx) => {
+            setTimeout(async () => {
+                const newElement = document.createElement("div");
+                const content = document.createElement("div");
+                content.classList.add("content");
+                newElement.appendChild(content);
+                newElement.classList.add("grocery-element");
+                newElement.tabIndex = 1;
+
+                content.textContent = el;
+                groceriesElement.appendChild(newElement);
+            }, 1000 * idx);
+        });
+
+        const groceriesForm = document.getElementById("groceries-new");
+        const input = groceriesForm.getElementsByTagName("input")[0];
+        groceriesForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const newElement = document.createElement("div");
+            const content = document.createElement("div");
+            content.classList.add("content");
+            newElement.appendChild(content);
+            newElement.classList.add("grocery-element");
+            newElement.tabIndex = 1;
+            content.textContent = input.value;
+
+            groceriesElement.appendChild(newElement);
+
+            input.value = "";
+        });
+    </script>
+</html>

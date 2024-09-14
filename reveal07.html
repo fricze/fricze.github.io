@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Reveal</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            :root,
+            body {
+                padding: 0;
+                margin: 0;
+                scroll-snap-type: y proximity;
+                scroll-behavior: smooth;
+            }
+
+            section {
+            }
+
+            @keyframes reveal-text {
+                0% {
+                    -webkit-text-stroke-color: #fff0;
+                }
+                20% {
+                    -webkit-text-stroke-color: #fff;
+                }
+                100% {
+                    -webkit-text-stroke-color: deeppink;
+                }
+            }
+
+            .reveal-text {
+                .clip {
+                    p {
+                        margin: 0;
+                        font-size: 3vw;
+                        font-weight: bold;
+                        position: fixed;
+                        top: 200px;
+                        color: deeppink;
+                        font-family: Arial, Helvetica, sans-serif;
+                        display: grid;
+                        place-items: center;
+
+                        a {
+                            color: deeppink;
+                        }
+                    }
+
+                    section {
+                        width: 100%;
+                    }
+                }
+
+                position: absolute;
+                top: 200px;
+                z-index: 4;
+                width: 100%;
+                height: 400vh;
+
+                .clip {
+                    height: 8vh;
+                    width: 100%;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+
+                    p {
+                        transform-origin: 0 0;
+                    }
+
+                    &:nth-child(1) {
+                        p {
+                            scale: 1;
+                        }
+                    }
+
+                    &:nth-child(2) {
+                        p {
+                            scale: 0.8;
+                        }
+                    }
+
+                    &:nth-child(3) {
+                        p {
+                            scale: 0.6;
+                        }
+                    }
+
+                    &:nth-child(4) {
+                        p {
+                            scale: 0.3;
+                        }
+                    }
+                }
+
+                section {
+                    top: 0;
+                    text-align: start;
+
+                    p {
+                        height: 5vw;
+                        line-height: 5vw;
+                    }
+                }
+
+                .bg {
+                    /* background: deeppink; */
+                    height: 30px;
+                }
+            }
+
+            .reveal {
+                .clip {
+                    scroll-snap-align: start;
+                    scroll-padding-top: 15vh;
+                    height: 100vh;
+                    width: 100%;
+                    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+                    position: relative;
+                }
+
+                margin: 0 auto;
+                width: 100%;
+                view-timeline-name: --section-pin;
+                view-timeline-axis: block;
+                position: relative;
+                z-index: 3;
+
+                .bg {
+                    height: 30px;
+                    background: #fff;
+                    background: url("./glitch.gif");
+                    /* box-shadow: 0px -20px 16px 16px #333; */
+                    position: relative;
+                    /* background: linear-gradient(to bottom, white, transparent); */
+                }
+                .img {
+                    object-fit: cover;
+                    object-position: center;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .content {
+                    position: fixed;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal-text">
+            <div class="clip">
+                <p>black rock</p>
+            </div>
+            <div class="clip">
+                <p>black rock</p>
+            </div>
+            <div class="clip">
+                <p>black rock</p>
+            </div>
+            <div class="clip">
+                <p>black rock</p>
+            </div>
+        </div>
+    </body>
+</html>

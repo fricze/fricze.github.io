@@ -1,0 +1,492 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Image reveal using scroll-timeline</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+            * {
+                box-sizing: border-box;
+            }
+
+            :root {
+                --basic-line-height: 26px;
+                font-size: 20px;
+                font-family: "Work Sans", sans-serif;
+                line-height: var(--basic-line-height);
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            article {
+                max-width: min(80ch, 90vw);
+                margin: calc(var(--basic-line-height) * 4) auto;
+                margin: 4lh auto;
+            }
+
+            figure {
+                padding: 0;
+                margin: 0;
+                animation-timeline: view();
+                animation-name: progress;
+
+                --percentage: "0%";
+                position: relative;
+
+                &::after {
+                    content: var(--percentage);
+                    font-size: 40px;
+                    position: absolute;
+                    color: deeppink;
+                    top: 100%;
+                    left: 0;
+                    padding: 0.5lh;
+                    background: #fff;
+                    text-align: center;
+                }
+
+                img {
+                    margin: 0;
+                    padding: 0;
+                    max-width: 100%;
+                    object-fit: cover;
+                    opacity: 0;
+
+                    height: 30dvh;
+
+                    animation-timeline: view();
+                    animation-name: img-reveal;
+                }
+
+                &,
+                img {
+                    /* animation-range: 10% 40%;
+                    animation-range: normal 10% normal 40%; */
+                    animation-range-start: normal 10%;
+                    animation-range-end: normal 40%;
+                    animation-fill-mode: forwards;
+                }
+            }
+
+            p {
+                margin: var(--basic-line-height) 0;
+                margin: 1lh 0;
+            }
+
+            h1 {
+                font-size: 40px;
+                line-height: 52px;
+            }
+
+            @keyframes img-reveal {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes progress {
+                0% {
+                    --percentage: "0%";
+                }
+                1% {
+                    --percentage: "1%";
+                }
+                2% {
+                    --percentage: "2%";
+                }
+                3% {
+                    --percentage: "3%";
+                }
+                4% {
+                    --percentage: "4%";
+                }
+                5% {
+                    --percentage: "5%";
+                }
+                6% {
+                    --percentage: "6%";
+                }
+                7% {
+                    --percentage: "7%";
+                }
+                8% {
+                    --percentage: "8%";
+                }
+                9% {
+                    --percentage: "9%";
+                }
+                10% {
+                    --percentage: "10%";
+                }
+                11% {
+                    --percentage: "11%";
+                }
+                12% {
+                    --percentage: "12%";
+                }
+                13% {
+                    --percentage: "13%";
+                }
+                14% {
+                    --percentage: "14%";
+                }
+                15% {
+                    --percentage: "15%";
+                }
+                16% {
+                    --percentage: "16%";
+                }
+                17% {
+                    --percentage: "17%";
+                }
+                18% {
+                    --percentage: "18%";
+                }
+                19% {
+                    --percentage: "19%";
+                }
+                20% {
+                    --percentage: "20%";
+                }
+                21% {
+                    --percentage: "21%";
+                }
+                22% {
+                    --percentage: "22%";
+                }
+                23% {
+                    --percentage: "23%";
+                }
+                24% {
+                    --percentage: "24%";
+                }
+                25% {
+                    --percentage: "25%";
+                }
+                26% {
+                    --percentage: "26%";
+                }
+                27% {
+                    --percentage: "27%";
+                }
+                28% {
+                    --percentage: "28%";
+                }
+                29% {
+                    --percentage: "29%";
+                }
+                30% {
+                    --percentage: "30%";
+                }
+                31% {
+                    --percentage: "31%";
+                }
+                32% {
+                    --percentage: "32%";
+                }
+                33% {
+                    --percentage: "33%";
+                }
+                34% {
+                    --percentage: "34%";
+                }
+                35% {
+                    --percentage: "35%";
+                }
+                36% {
+                    --percentage: "36%";
+                }
+                37% {
+                    --percentage: "37%";
+                }
+                38% {
+                    --percentage: "38%";
+                }
+                39% {
+                    --percentage: "39%";
+                }
+                40% {
+                    --percentage: "40%";
+                }
+                41% {
+                    --percentage: "41%";
+                }
+                42% {
+                    --percentage: "42%";
+                }
+                43% {
+                    --percentage: "43%";
+                }
+                44% {
+                    --percentage: "44%";
+                }
+                45% {
+                    --percentage: "45%";
+                }
+                46% {
+                    --percentage: "46%";
+                }
+                47% {
+                    --percentage: "47%";
+                }
+                48% {
+                    --percentage: "48%";
+                }
+                49% {
+                    --percentage: "49%";
+                }
+                50% {
+                    --percentage: "50%";
+                }
+                51% {
+                    --percentage: "51%";
+                }
+                52% {
+                    --percentage: "52%";
+                }
+                53% {
+                    --percentage: "53%";
+                }
+                54% {
+                    --percentage: "54%";
+                }
+                55% {
+                    --percentage: "55%";
+                }
+                56% {
+                    --percentage: "56%";
+                }
+                57% {
+                    --percentage: "57%";
+                }
+                58% {
+                    --percentage: "58%";
+                }
+                59% {
+                    --percentage: "59%";
+                }
+                60% {
+                    --percentage: "60%";
+                }
+                61% {
+                    --percentage: "61%";
+                }
+                62% {
+                    --percentage: "62%";
+                }
+                63% {
+                    --percentage: "63%";
+                }
+                64% {
+                    --percentage: "64%";
+                }
+                65% {
+                    --percentage: "65%";
+                }
+                66% {
+                    --percentage: "66%";
+                }
+                67% {
+                    --percentage: "67%";
+                }
+                68% {
+                    --percentage: "68%";
+                }
+                69% {
+                    --percentage: "69%";
+                }
+                70% {
+                    --percentage: "70%";
+                }
+                71% {
+                    --percentage: "71%";
+                }
+                72% {
+                    --percentage: "72%";
+                }
+                73% {
+                    --percentage: "73%";
+                }
+                74% {
+                    --percentage: "74%";
+                }
+                75% {
+                    --percentage: "75%";
+                }
+                76% {
+                    --percentage: "76%";
+                }
+                77% {
+                    --percentage: "77%";
+                }
+                78% {
+                    --percentage: "78%";
+                }
+                79% {
+                    --percentage: "79%";
+                }
+                80% {
+                    --percentage: "80%";
+                }
+                81% {
+                    --percentage: "81%";
+                }
+                82% {
+                    --percentage: "82%";
+                }
+                83% {
+                    --percentage: "83%";
+                }
+                84% {
+                    --percentage: "84%";
+                }
+                85% {
+                    --percentage: "85%";
+                }
+                86% {
+                    --percentage: "86%";
+                }
+                87% {
+                    --percentage: "87%";
+                }
+                88% {
+                    --percentage: "88%";
+                }
+                89% {
+                    --percentage: "89%";
+                }
+                90% {
+                    --percentage: "90%";
+                }
+                91% {
+                    --percentage: "91%";
+                }
+                92% {
+                    --percentage: "92%";
+                }
+                93% {
+                    --percentage: "93%";
+                }
+                94% {
+                    --percentage: "94%";
+                }
+                95% {
+                    --percentage: "95%";
+                }
+                96% {
+                    --percentage: "96%";
+                }
+                97% {
+                    --percentage: "97%";
+                }
+                98% {
+                    --percentage: "98%";
+                }
+                99% {
+                    --percentage: "99%";
+                }
+                100% {
+                    --percentage: "100%";
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <article>
+            <h1>Miles Davis (image reveal demo)</h1>
+            <p>
+                Miles Dewey Davis III (May 26, 1926 - September 28, 1991) was an
+                American jazz trumpeter, bandleader, and composer. He is among
+                the most influential and acclaimed figures in the history of
+                jazz and 20th-century music. Davis adopted a variety of musical
+                directions in a roughly five-decade career that kept him at the
+                forefront of many major stylistic developments in jazz.
+            </p>
+            <figure>
+                <img src="one.webp" />
+            </figure>
+            <p>
+                Born into an upper-middle-class family in Alton, Illinois, and
+                raised in East St. Louis, Davis started on the trumpet in his
+                early teens. He left to study at Juilliard in New York City,
+                before dropping out and making his professional debut as a
+                member of saxophonist Charlie Parker's bebop quintet from 1944
+                to 1948. Shortly after, he recorded the Birth of the Cool
+                sessions for Capitol Records, which were instrumental to the
+                development of cool jazz. In the early 1950s, Davis recorded
+                some of the earliest hard bop music while on Prestige Records
+                but did so haphazardly due to a heroin addiction. After a widely
+                acclaimed comeback performance at the Newport Jazz Festival, he
+                signed a long-term contract with Columbia Records, and recorded
+                the album 'Round About Midnight in 1955. It was his first work
+                with saxophonist John Coltrane and bassist Paul Chambers, key
+                members of the sextet he led into the early 1960s. During this
+                period, he alternated between orchestral jazz collaborations
+                with arranger Gil Evans, such as the Spanish music-influenced
+                Sketches of Spain (1960), and band recordings, such as
+                Milestones (1958) and Kind of Blue (1959). The latter recording
+                remains one of the most popular jazz albums of all time, having
+                sold over five million copies in the U.S.
+            </p>
+            <figure>
+                <img src="two.webp" />
+            </figure>
+            <p>
+                After a five-year retirement due to poor health, Davis resumed
+                his career in the 1980s, employing younger musicians and pop
+                sounds on albums such as The Man with the Horn (1981) and Tutu
+                (1986). Critics were often unreceptive but the decade garnered
+                Davis his highest level of commercial recognition. He performed
+                sold-out concerts worldwide, while branching out into visual
+                arts, film, and television work, before his death in 1991 from
+                the combined effects of a stroke, pneumonia and respiratory
+                failure. In 2006, Davis was inducted into the Rock and Roll Hall
+                of Fame, which recognized him as "one of the key figures in the
+                history of jazz". Rolling Stone described him as "the most
+                revered jazz trumpeter of all time, not to mention one of the
+                most important musicians of the 20th century," while Gerald
+                Early called him inarguably one of the most influential and
+                innovative musicians of that period. After a five-year
+                retirement due to poor health, Davis resumed his career in the
+                1980s, employing younger musicians and pop sounds on albums such
+                as The Man with the Horn (1981) and Tutu (1986). Critics were
+                often unreceptive but the decade garnered Davis his highest
+                level of commercial recognition. He performed sold-out concerts
+                worldwide, while branching out into visual arts, film, and
+                television work, before his death in 1991 from the combined
+                effects of a stroke, pneumonia and respiratory failure. In 2006,
+                Davis was inducted into the Rock and Roll Hall of Fame, which
+                recognized him as "one of the key figures in the history of
+                jazz". Rolling Stone described him as "the most revered jazz
+                trumpeter of all time, not to mention one of the most important
+                musicians of the 20th century," while Gerald Early called him
+                inarguably one of the most influential and innovative musicians
+                of that period. After a five-year retirement due to poor health,
+                Davis resumed his career in the 1980s, employing younger
+                musicians and pop sounds on albums such as The Man with the Horn
+                (1981) and Tutu (1986). Critics were often unreceptive but the
+                decade garnered Davis his highest level of commercial
+                recognition. He performed sold-out concerts worldwide, while
+                branching out into visual arts, film, and television work,
+                before his death in 1991 from the combined effects of a stroke,
+                pneumonia and respiratory failure. In 2006, Davis was inducted
+                into the Rock and Roll Hall of Fame, which recognized him as
+                "one of the key figures in the history of jazz". Rolling Stone
+                described him as "the most revered jazz trumpeter of all time,
+                not to mention one of the most important musicians of the 20th
+                century," while Gerald Early called him inarguably one of the
+                most influential and innovative musicians of that period.
+            </p>
+            <figure>
+                <img src="three.webp" />
+            </figure>
+        </article>
+    </body>
+</html>

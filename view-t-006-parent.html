@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+    <head>
+        <title>starting styles!</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            :root {
+                view-transition-name: none;
+            }
+
+            ::view-transition {
+                pointer-events: none;
+            }
+
+            #groceries {
+                margin: 0 auto;
+                margin-top: 30vh;
+                background: #f9f9f9;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: Arial, sans-serif;
+                width: 300px;
+                font-size: 24px;
+                transition: all 0.5s;
+                view-transition-name: groceries;
+            }
+
+            input {
+                font-family: Arial, sans-serif;
+                font-size: 24px;
+                width: 100%;
+            }
+
+            #groceries div {
+                padding: 5px;
+                border-bottom: 1px solid #ddd;
+
+                &:hover {
+                    text-decoration: underline;
+                    color: deeppink;
+                    cursor: pointer;
+                }
+
+                &::after {
+                    content: "×";
+                    margin-left: 10px;
+                }
+            }
+
+            #groceries-new {
+                margin: 0 auto;
+                background: #f9f9f9;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: Arial, sans-serif;
+                width: 300px;
+                font-size: 24px;
+                margin-top: 2lh;
+            }
+
+            .real-dom {
+                position: fixed;
+                font-family: Arial, sans-serif;
+                top: 0;
+                left: 0;
+                text-align: center;
+                width: 100%;
+                color: deeppink;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="real-dom">View transitions don't animate real DOM</h1>
+        <div id="groceries">
+            <h1>Groceries</h1>
+        </div>
+
+        <form id="groceries-new">
+            <input type="text" placeholder="Add to list" />
+        </form>
+    </body>
+    <script>
+        const groceryList = ["Bread", "Tomatoes", "Milk"];
+
+        const groceriesElement = document.getElementById("groceries");
+
+        groceriesElement.addEventListener("click", (e) => {
+            const isGroceryElement =
+                e.target.classList.contains("grocery-element");
+            if (isGroceryElement) {
+                document.startViewTransition(() => {
+                    e.target.style.viewTransitionName = "remove";
+                    e.target.remove();
+                });
+            }
+        });
+
+        groceriesElement.addEventListener("keydown", (e) => {
+            if (e.key !== "Enter") {
+                return;
+            }
+
+            const isGroceryElement =
+                e.target.classList.contains("grocery-element");
+            let sibling;
+
+            if (isGroceryElement) {
+                if (
+                    e?.target?.nextSibling?.classList.contains(
+                        "grocery-element",
+                    )
+                ) {
+                    sibling = e?.target?.nextSibling;
+                }
+
+                if (
+                    e?.target?.previousSibling?.classList?.contains(
+                        "grocery-element",
+                    )
+                ) {
+                    sibling = e?.target?.previousSibling;
+                }
+
+                document.startViewTransition(() => {
+                    e.target.style.viewTransitionName = "remove";
+                    e.target.remove();
+                });
+
+                sibling?.focus();
+            }
+        });
+
+        groceryList.forEach((el, idx) => {
+            setTimeout(async () => {
+                const newElement = document.createElement("div");
+                newElement.classList.add("grocery-element");
+                newElement.tabIndex = 1;
+
+                newElement.textContent = el;
+
+                const t = document.startViewTransition(() => {
+                    groceriesElement.appendChild(newElement);
+                });
+
+                await t.finished;
+            }, 500 * idx);
+        });
+
+        const groceriesForm = document.getElementById("groceries-new");
+        const input = groceriesForm.getElementsByTagName("input")[0];
+        groceriesForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const newElement = document.createElement("div");
+            newElement.classList.add("grocery-element");
+            newElement.textContent = input.value;
+            newElement.tabIndex = 1;
+
+            document.startViewTransition(() => {
+                groceriesElement.appendChild(newElement);
+            });
+
+            input.value = "";
+        });
+    </script>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Unblock.app - Your LinkedIn posts</title>
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            html {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            section {
+                max-width: 1024px;
+                margin: 3lh auto;
+                border: 1px solid black;
+                border-radius: 5px;
+                padding: 2lh 1lh;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 1lh;
+            }
+
+            h1,
+            p {
+                margin: 0;
+                padding: 0;
+            }
+
+            label p {
+                font-size: 20px;
+                margin-bottom: 0.25lh;
+            }
+
+            h1 {
+                margin-bottom: 1lh;
+            }
+
+            input[type="text"],
+            textarea {
+                font-size: 20px;
+                padding: 0.5lh;
+                font-family: Arial, Helvetica, sans-serif;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <h1>Write LinkedIn post</h1>
+
+            <form>
+                <label class="topic">
+                    <p>Topic (opening line)</p>
+                    <input type="text" />
+                </label>
+                <label class="intro">
+                    <p>Intro (expand opening line)</p>
+                    <input type="text" />
+                </label>
+                <label class="content">
+                    <p>Content (main thing you want to present)</p>
+                    <textarea></textarea>
+                </label>
+                <label class="summary">
+                    <p>
+                        Summary (make sure that people remember most important
+                        part)
+                    </p>
+                    <input type="text" />
+                </label>
+                <label class="cta">
+                    <p>Call to action</p>
+                    <input type="text" />
+                </label>
+            </form>
+        </section>
+
+        <script>
+            function addEventListenerToSelector(selector, eventType, callback) {
+                document.querySelectorAll(selector).forEach((element) => {
+                    element.addEventListener(eventType, callback);
+                });
+            }
+
+            addEventListenerToSelector(
+                "input, textarea",
+                "keydown",
+                (event) => {
+                    if (event.code === "ArrowDown") {
+                        const parent = event.target.closest("label");
+                        const next = parent.nextElementSibling;
+                        next?.querySelector("input, textarea").focus();
+                    }
+
+                    if (event.code === "ArrowUp") {
+                        const parent = event.target.closest("label");
+                        const next = parent.previousElementSibling;
+                        next?.querySelector("input, textarea").focus();
+                    }
+                },
+            );
+        </script>
+    </body>
+</html>
