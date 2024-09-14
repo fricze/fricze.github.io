@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Smiga 001</title>
+        <style type="text/css">
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            @keyframes caption-in {
+                0% {
+                    translate: 0 300%;
+                }
+                100% {
+                    translate: 0 0;
+                }
+            }
+
+            ::view-transition-new(image-caption) {
+                animation: caption-in ease-in 0.25s;
+            }
+
+            @keyframes caption-out {
+                0% {
+                    translate: 0 0;
+                }
+                100% {
+                    translate: 0 100%;
+                }
+            }
+
+            @keyframes image-in {
+                from {
+                    clip-path: circle(10% at 50% 50%);
+                }
+                to {
+                    clip-path: circle(100% at 50% 50%);
+                }
+            }
+
+            @keyframes image-out {
+                from {
+                    filter: blur(20px);
+                }
+                to {
+                    filter: blur(0px);
+                }
+            }
+
+            ::view-transition-new(main-image-in) {
+                animation-name: image-in;
+                animation-duration: 0.3s;
+                animation-timing-function: ease-in;
+            }
+
+            ::view-transition-new(main-image-out) {
+                animation-name: image-out;
+                animation-duration: 0.5s;
+            }
+
+            #gallery {
+                width: 80vw;
+                height: 80vh;
+                margin: 10vh auto;
+                gap: 20px;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr;
+                overflow: hidden;
+            }
+
+            #gallery figure.image {
+                background: #999;
+
+                img {
+                    margin: 0;
+                    object-position: center;
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+
+                    transition: scale 0.2s 0s;
+                }
+
+                margin: 0;
+                cursor: pointer;
+                overflow: hidden;
+                position: relative;
+
+                transition: clip-path 0.2s
+                    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                clip-path: inset(5% 20% 15% 10% round 15px);
+
+                &:hover,
+                &.active {
+                    clip-path: inset(0% 0% 0% 0%);
+
+                    img {
+                        transition: scale 0.3s 0.1s;
+                    }
+
+                    figcaption {
+                        translate: 0 0;
+                    }
+                }
+
+                figcaption {
+                    transition: translate 0.2s;
+                    font-family: Arial, Helvetica, sans-serif;
+                    position: absolute;
+                    translate: 0 100%;
+                    bottom: 0;
+                    left: 0;
+                    color: #fff;
+                    background: #333;
+                    padding: 0.5lh;
+                    font-size: 20px;
+                }
+            }
+
+            #main-photo:has(img) {
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: hsl(0, 0%, 0%, 0.7);
+                width: 100%;
+                height: 100vh;
+                z-index: 2;
+                padding-right: 17px;
+                cursor: pointer;
+
+                img {
+                    height: 100%;
+                    width: auto;
+                    object-position: center;
+                    /* object-fit: contain; has issues with transition */
+                    object-fit: cover;
+                }
+
+                figcaption {
+                    transition: translate 0.2s;
+                    font-family: Arial, Helvetica, sans-serif;
+                    position: absolute;
+                    translate: 0 100%;
+                    top: 0;
+                    left: 0;
+                    color: #fff;
+                    background: #333;
+                    padding: 0.5lh;
+                    font-size: 30px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <section id="gallery"></section>
+
+        <dialog id="main-photo"></dialog>
+
+        <template id="image">
+            <figure class="image">
+                <img src="./001/001.jpg" />
+                <figcaption></figcaption>
+            </figure>
+        </template>
+
+        <script>
+            document.startViewTransition =
+                document.startViewTransition ||
+                function (callback) {
+                    callback();
+                    return {
+                        finished: Promise.resolve(),
+                    };
+                };
+
+            const gallery = document.getElementById("gallery");
+            const mainPhoto = document.getElementById("main-photo");
+
+            let activeFigure;
+
+            document.addEventListener("keydown", async (e) => {
+                if (e.key === "ArrowLeft") {
+                    return;
+                }
+
+                if (e.key === "ArrowRight") {
+                    return;
+                }
+            });
+
+            mainPhoto.addEventListener("click", async (e) => {
+                mainPhoto.querySelector("img").style.viewTransitionName =
+                    "main-image-out";
+
+                const trans = document.startViewTransition(() => {
+                    activeFigure?.appendChild(mainPhoto.querySelector("img"));
+                    activeFigure?.appendChild(
+                        mainPhoto.querySelector("figcaption"),
+                    );
+                });
+
+                await trans.finished;
+
+                activeFigure
+                    .querySelectorAll("img, figcaption")
+                    .forEach((el) => {
+                        el.style.viewTransitionName = "";
+                    });
+                activeFigure.classList.remove("active");
+            });
+
+            gallery.addEventListener("click", (e) => {
+                const figure = e.target.closest(".image");
+                activeFigure = figure;
+
+                if (figure) {
+                    figure.classList.add("active");
+                    const image = figure.querySelector("img");
+                    image.style.viewTransitionName = "main-image-in";
+
+                    const caption = figure.querySelector("figcaption");
+                    caption.style.viewTransitionName = "image-caption";
+
+                    document.startViewTransition(() => {
+                        mainPhoto.appendChild(image);
+                        mainPhoto.appendChild(caption);
+                    });
+                }
+            });
+
+            new Array(9).fill(0).forEach((_, idx) => {
+                const template = document.querySelector("#image");
+                const clone = template.content.cloneNode(true);
+                const imgIdx = idx >= 9 ? `0${idx + 1}` : `00${idx + 1}`;
+                clone.children[0].getElementsByTagName("img")[0].src =
+                    `./landscapes/${imgIdx}.jpg`;
+                clone.children[0].getElementsByTagName(
+                    "figcaption",
+                )[0].textContent =
+                    `Sky photo from my gallery. No. 00${idx + 1}`;
+
+                gallery.appendChild(clone);
+            });
+        </script>
+    </body>
+</html>

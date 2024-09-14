@@ -1,0 +1,315 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Smiga 001</title>
+        <style type="text/css">
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --image-y-origin: 50%;
+                --image-x-origin: 50%;
+            }
+
+            @keyframes caption-in {
+                0% {
+                    translate: 0 100%;
+                }
+                100% {
+                    translate: 0 0;
+                }
+            }
+            ::view-transition-new(image-caption):only-child {
+                animation: caption-in ease-in 0.25s;
+                animation-timing-function: cubic-bezier(
+                    0.6,
+                    -0.28,
+                    0.735,
+                    0.045
+                );
+            }
+
+            /* ::view-transition-new(main-image):only-child {
+                animation: caption-in ease-in 0.25s;
+                animation-timing-function: cubic-bezier(
+                    0.6,
+                    -0.28,
+                    0.735,
+                    0.045
+                );
+            } */
+
+            @keyframes caption-out {
+                0% {
+                    translate: 0 0;
+                }
+                100% {
+                    translate: 0 100%;
+                }
+            }
+
+            ::view-transition-old(image-caption):only-child {
+                animation: caption-out ease-out 0.25s;
+                animation-timing-function: cubic-bezier(
+                    0.6,
+                    -0.28,
+                    0.735,
+                    0.045
+                );
+            }
+
+            /* ::view-transition-old(main-image):only-child {
+                animation: caption-out ease-in 0.25s;
+                animation-timing-function: cubic-bezier(
+                    0.6,
+                    -0.28,
+                    0.735,
+                    0.045
+                );
+            } */
+
+            #gallery {
+                width: 80vw;
+                height: 80vh;
+                margin: 10vh auto;
+                gap: 20px;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr;
+                overflow: hidden;
+            }
+
+            #gallery figure.image {
+                background: #999;
+                /* border: 1px solid #999; */
+
+                img {
+                    margin: 0;
+                    object-position: center;
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+
+                    transition: scale 0.2s 0s;
+                }
+
+                margin: 0;
+                cursor: pointer;
+                overflow: hidden;
+                position: relative;
+
+                transition: clip-path 0.2s
+                    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                clip-path: inset(5% 20% 15% 10% round 15px);
+
+                &:hover,
+                &.active {
+                    clip-path: inset(0% 0% 0% 0%);
+
+                    img {
+                        /* scale: 2; */
+                        transition: scale 0.3s 0.1s;
+                    }
+
+                    figcaption {
+                        translate: 0 0;
+                    }
+                }
+
+                figcaption {
+                    transition: translate 0.2s;
+                    font-family: Arial, Helvetica, sans-serif;
+                    position: absolute;
+                    translate: 0 100%;
+                    bottom: 0;
+                    left: 0;
+                    color: #fff;
+                    background: #333;
+                    padding: 0.5lh;
+                    font-size: 20px;
+                }
+            }
+
+            @keyframes zoom-in {
+                0% {
+                    transform: scale(0);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes zoom-out {
+                0% {
+                    transform: scale(1);
+                }
+                100% {
+                    transform: scale(0);
+                }
+            }
+
+            #main-photo:has(img) {
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: hsl(0, 0%, 0%, 0.7);
+                width: 100%;
+                height: 100vh;
+                z-index: 2;
+                padding-right: 17px;
+                cursor: pointer;
+
+                img {
+                    height: 100%;
+                    width: auto;
+                    object-position: center;
+                    /* object-fit: contain; has issues with transition */
+                    object-fit: cover;
+
+                    body.view-transition & {
+                        animation: zoom-in 0.3s;
+                    }
+
+                    &.leaving {
+                        animation: zoom-out 0.3s;
+                    }
+
+                    transform-origin: var(--image-x-origin)
+                        var(--image-y-origin);
+                }
+
+                figcaption {
+                    transition: translate 0.2s;
+                    font-family: Arial, Helvetica, sans-serif;
+                    position: absolute;
+                    translate: 0 100%;
+                    top: 0;
+                    left: 0;
+                    color: #fff;
+                    background: #333;
+                    padding: 0.5lh;
+                    font-size: 30px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <section id="gallery"></section>
+
+        <dialog id="main-photo"></dialog>
+
+        <template id="image">
+            <figure class="image">
+                <img src="./001/001.jpg" />
+                <figcaption></figcaption>
+            </figure>
+        </template>
+
+        <script>
+            document.startViewTransition =
+                document.startViewTransition ||
+                function (callback) {
+                    document.body.classList.add("view-transition");
+                    callback();
+
+                    return {
+                        finished: Promise.all(
+                            document
+                                .getAnimations()
+                                .map((animation) => animation.finished),
+                        ).then(() => {
+                            document.body.classList.remove("view-transition");
+                        }),
+                    };
+                };
+
+            const gallery = document.getElementById("gallery");
+            const mainPhoto = document.getElementById("main-photo");
+
+            let activeFigure;
+
+            mainPhoto.addEventListener("click", async (e) => {
+                const children = [
+                    mainPhoto.querySelector("img"),
+                    mainPhoto.querySelector("figcaption"),
+                ];
+
+                children.forEach((el) => {
+                    el.classList.add("leaving");
+                });
+
+                await Promise.all(
+                    document
+                        .getAnimations()
+                        .map((animation) => animation.finished),
+                );
+
+                activeFigure?.replaceChildren(...children);
+
+                // await trans.finished;
+
+                activeFigure
+                    .querySelectorAll("img, figcaption")
+                    .forEach((el) => {
+                        el.style.viewTransitionName = "";
+                        el.classList.remove("leaving");
+                    });
+                activeFigure.classList.remove("active");
+            });
+
+            gallery.addEventListener("click", (e) => {
+                const figure = e.target.closest(".image");
+                activeFigure = figure;
+
+                if (figure) {
+                    figure.classList.add("active");
+                    const image = figure.querySelector("img");
+                    image.style.viewTransitionName = "main-image";
+
+                    const caption = figure.querySelector("figcaption");
+                    caption.style.viewTransitionName = "image-caption";
+
+                    // TODO: make position image based, not click based
+                    // so probably: find image rect, and use this rect to
+                    // calculate transform origin
+                    const x = e.clientX - e.currentTarget.offsetLeft;
+                    const y = e.clientY - e.currentTarget.offsetTop;
+
+                    document.documentElement.style.setProperty(
+                        "--image-y-origin",
+                        (e.pageY / window.innerHeight) * 100 + "%",
+                    );
+                    document.documentElement.style.setProperty(
+                        "--image-x-origin",
+                        (x / window.innerWidth) * 100 + "%",
+                    );
+
+                    document.startViewTransition(() => {
+                        mainPhoto.appendChild(image);
+                        mainPhoto.appendChild(caption);
+                    });
+                }
+            });
+
+            new Array(9).fill(0).forEach((_, idx) => {
+                const template = document.querySelector("#image");
+                const clone = template.content.cloneNode(true);
+                clone.children[0].getElementsByTagName("img")[0].src =
+                    `./001/00${idx + 1}.jpg`;
+                clone.children[0].getElementsByTagName(
+                    "figcaption",
+                )[0].textContent =
+                    `Sky photo from my gallery. No. 00${idx + 1}`;
+
+                gallery.appendChild(clone);
+            });
+        </script>
+    </body>
+</html>

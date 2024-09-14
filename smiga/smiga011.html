@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Smiga 001</title>
+        <style type="text/css">
+            * {
+                box-sizing: border-box;
+            }
+
+            :root {
+                animation: adjust-pos linear both;
+                animation-timeline: scroll(root);
+            }
+
+            @property --scroll-position {
+                syntax: "<number>";
+                inherits: true;
+                initial-value: 0;
+            }
+            @property --scroll-position-delayed {
+                syntax: "<number>";
+                inherits: true;
+                initial-value: 0;
+            }
+
+            @keyframes adjust-pos {
+                to {
+                    --scroll-position: 1;
+                    --scroll-position-delayed: 1;
+                }
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                height: 400vh;
+
+                transition: --scroll-position-delayed 0.15s linear;
+                --scroll-velocity: calc(
+                    var(--scroll-position) - var(--scroll-position-delayed)
+                );
+                --scroll-speed: abs(var(--scroll-velocity));
+                --scroll-direction: sign(var(--scroll-velocity));
+            }
+
+            @supports not (transform: scaleX(sign(-1))) {
+                body {
+                    --scroll-speed: max(
+                        var(--scroll-velocity),
+                        -1 * var(--scroll-velocity)
+                    );
+                    --scroll-direction: calc(
+                        var(--scroll-velocity) / var(--scroll-speed)
+                    );
+                }
+            }
+
+            #gallery {
+                overflow: hidden;
+                display: flex;
+                flex-direction: row;
+                position: fixed;
+                width: 100%;
+                height: 100dvh;
+                top: 0;
+                padding: calc(1.25em - 5px);
+            }
+
+            #gallery figure.image {
+                height: 230px;
+                width: 200px;
+
+                --init-position: 50%;
+                position: relative;
+                transition: top 0.4s ease;
+
+                will-change: top;
+
+                top: max(
+                    calc(
+                        var(--init-position) - var(--scroll-position) * 4 * 100% +
+                            var(--scroll-position-delayed) * -50% + 350%
+                    ),
+                    0%
+                );
+
+                &:nth-child(1) {
+                    --init-position: 80%;
+                }
+
+                &:nth-child(2) {
+                    --init-position: 58%;
+                }
+
+                &:nth-child(3) {
+                    --init-position: 45%;
+                }
+
+                &:nth-child(4) {
+                    --init-position: 70%;
+                }
+
+                &:nth-child(5) {
+                    --init-position: 38%;
+                }
+
+                &:nth-child(6) {
+                    --init-position: 49%;
+                }
+
+                &:nth-child(7) {
+                    --init-position: 89%;
+                }
+
+                &:nth-child(8) {
+                    --init-position: 19%;
+                }
+
+                &:nth-child(9) {
+                    --init-position: 39%;
+                }
+
+                img {
+                    object-fit: cover;
+                    margin: 0;
+                    aspect-ratio: 2 / 3;
+                    width: 100%;
+                    height: 100%;
+                    padding: 5px;
+                }
+
+                margin: 0;
+                cursor: pointer;
+
+                figcaption {
+                    display: none;
+                }
+
+                figcaption {
+                    transition: translate 0.2s;
+                    font-family: Arial, Helvetica, sans-serif;
+                    position: absolute;
+                    translate: 0 100%;
+                    bottom: 0;
+                    left: 0;
+                    color: #fff;
+                    background: #333;
+                    padding: 0.5lh;
+                    font-size: 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <section id="gallery"></section>
+
+        <template id="image">
+            <figure class="image">
+                <img src="./001/001.jpg" />
+                <figcaption></figcaption>
+            </figure>
+        </template>
+
+        <script src="https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js"></script>
+        <script>
+            new Array(10).fill(0).forEach((_, idx) => {
+                const template = document.querySelector("#image");
+                const clone = template.content.cloneNode(true);
+                const imgIdx = idx >= 9 ? `0${idx + 1}` : `00${idx + 1}`;
+                clone.children[0].getElementsByTagName("img")[0].src =
+                    `./landscapes/${imgIdx}.jpg`;
+
+                gallery.appendChild(clone);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Smiga 001</title>
+        <style type="text/css">
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --image-y-origin: 50%;
+                --image-x-origin: 50%;
+            }
+
+            @keyframes caption-in {
+                0% {
+                    /* no worky! it's replaced element */
+                    /* font-size: 40px;
+                    scale: 5; */
+                    /* border: 1px solid black; */
+                    rotate: 180deg;
+                    translate: 0 -1500%;
+                    opacity: 0;
+                    /* background: blue; */
+                }
+                100% {
+                    /* font-size: 16px;
+                    scale: 1; */
+                    /* color: black; */
+                }
+            }
+
+            /* ::view-transition-new(*.title):only-child {
+                animation: caption-in ease-in 0.5s;
+            } */
+
+            @keyframes caption-out {
+                0% {
+                    scale: 0;
+                }
+                100% {
+                    /* color: blue; */
+                    scale: 20;
+                }
+            }
+
+            ::view-transition-old(*.title):only-child {
+                animation: caption-out ease-out 0.25s;
+            }
+
+            @keyframes grid-out {
+                0% {
+                    background: red;
+                }
+                100% {
+                    background: gold;
+                }
+            }
+
+            #gallery {
+                width: 80vw;
+                height: 80vh;
+                margin: 10vh auto;
+                gap: 20px;
+                display: grid;
+                /* grid-template-columns: repeat(3, 25vw);
+                grid-template-rows: repeat(3, 25vh); */
+            }
+
+            #gallery div.image {
+                background: #999;
+
+                figure {
+                    margin: 0;
+                    height: 100%;
+                    width: 100%;
+                }
+
+                img {
+                    margin: 0 auto;
+                    object-position: center;
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+
+                    transition: scale 0.2s 0s;
+                }
+
+                margin: 0;
+                cursor: pointer;
+
+                transition: clip-path 0.2s
+                    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                clip-path: inset(5% 20% 15% 10% round 15px);
+
+                &.active {
+                    position: fixed;
+                    height: 100%;
+                    width: auto;
+                    top: 0;
+                    left: 30%;
+                    z-index: 3;
+
+                    img {
+                        position: relative;
+                        left: 50%;
+                        translate: -50% 0;
+                        transition: scale 0s 0s;
+                    }
+                }
+
+                &:hover,
+                &.active {
+                    clip-path: inset(0% 0% 0% 0%);
+
+                    img {
+                        transition: scale 0.3s 0.1s;
+                    }
+                    figcaption {
+                        translate: 0 0;
+                    }
+                }
+
+                figcaption {
+                    transition: translate 0.2s;
+                    font-family: Arial, Helvetica, sans-serif;
+                    position: absolute;
+                    translate: 0 100%;
+                    bottom: 0;
+                    left: 0;
+                    color: #fff;
+                    background: #333;
+                    padding: 0.5lh;
+                    font-size: 20px;
+                }
+            }
+
+            @keyframes zoom-in {
+                0% {
+                    transform: scale(0);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes zoom-out {
+                0% {
+                    transform: scale(1);
+                }
+                100% {
+                    transform: scale(0);
+                }
+            }
+
+            main {
+                display: grid;
+                place-items: center;
+                height: 80vh;
+                /* grid-template-rows: repeat(5, 1fr); */
+                grid-auto-rows: auto;
+                /* border: 2px solid #333;
+                border-radius: 10px; */
+                margin: 30px;
+                /* view-transition-name: main-grid; */
+            }
+
+            h1 {
+                margin: 0;
+                color: black;
+                /* view-transition-name: title; */
+                border: 1px solid black;
+            }
+
+            h1.active {
+                color: deeppink;
+                translate: 150% 50%;
+                scale: 2;
+                /* border: 3px solid deeppink;
+                border-radius: 50%; */
+                /* rotate: 180deg; */
+            }
+
+            h2 {
+                view-transition-class: title;
+            }
+
+            /* What is a plus over CSS transitions? You can move element around in DOM!
+            you can place element in different place in different parents, different whatever.
+            with CSS transitions you need to transition one element.
+            So from "functional" point of view, this is really nice.
+            Cause you can focus more on functionality, and you can easily add/remove elements
+            without worrying abt transitions and shit. for simple transitions transitions are still ok
+            and they have delays!
+            make animation of flying rocket with scroll-based animations
+            */
+        </style>
+    </head>
+    <body>
+        <main></main>
+
+        <button id="images">Add next</button>
+
+        <script>
+            window.images.addEventListener("click", (e) => {
+                const h2Element = document.createElement("h2");
+                h2Element.textContent = "new title";
+                const uuid = self.crypto.randomUUID();
+
+                h2Element.style.viewTransitionName = "super-name" + uuid;
+
+                document.startViewTransition(() => {
+                    document.querySelector("main").append(h2Element);
+
+                    // document.querySelector("main").style.height = "500px";
+                    // e.target.classList.toggle("active");
+                });
+            });
+        </script>
+    </body>
+</html>
