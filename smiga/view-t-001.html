@@ -14,13 +14,25 @@
 
             #gallery {
                 width: 80vw;
-                height: 80vh;
                 margin: 10vh auto;
                 gap: 20px;
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                grid-template-rows: 1fr 1fr 1fr;
+                grid-template-columns: 1fr;
                 overflow: hidden;
+            }
+
+            @media screen and (min-width: 600px) {
+                #gallery {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            @media screen and (min-width: 960px) {
+                #gallery {
+                    max-height: 80vh;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-template-rows: 1fr 1fr 1fr;
+                }
             }
 
             #gallery figure.image {
@@ -68,7 +80,12 @@
                 }
             }
 
+            body:has(#main-photo:not(:empty)) {
+                overflow: hidden;
+            }
+
             #main-photo:has(img) {
+                position: fixed;
                 inset: 0;
                 display: flex;
                 align-items: center;
@@ -84,7 +101,6 @@
                     height: 100%;
                     width: auto;
                     object-position: center;
-                    /* object-fit: contain; has issues with transition */
                     object-fit: cover;
                 }
 
@@ -129,16 +145,6 @@
             const mainPhoto = document.getElementById("main-photo");
 
             let activeFigure;
-
-            document.addEventListener("keydown", async (e) => {
-                if (e.key === "ArrowLeft") {
-                    return;
-                }
-
-                if (e.key === "ArrowRight") {
-                    return;
-                }
-            });
 
             mainPhoto.addEventListener("click", async (e) => {
                 mainPhoto.querySelector("img").style.viewTransitionName =
