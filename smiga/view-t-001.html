@@ -14,14 +14,14 @@
 
             #gallery {
                 width: 80vw;
-                margin: 10vh auto;
+                margin: 6vh auto;
                 gap: 20px;
                 display: grid;
                 grid-template-columns: 1fr;
                 overflow: hidden;
             }
 
-            @media screen and (min-width: 600px) {
+            /* @media screen and (min-width: 600px) {
                 #gallery {
                     grid-template-columns: 1fr 1fr;
                 }
@@ -33,7 +33,7 @@
                     grid-template-columns: 1fr 1fr 1fr;
                     grid-template-rows: 1fr 1fr 1fr;
                 }
-            }
+            } */
 
             #gallery figure.image {
                 background: #999;
@@ -55,7 +55,7 @@
 
                 transition: clip-path 0.2s
                     cubic-bezier(0.6, -0.28, 0.735, 0.045);
-                clip-path: inset(5% 20% 15% 10% round 15px);
+                /* clip-path: inset(5% 20% 15% 10% round 15px); */
 
                 &:hover,
                 &.active {
